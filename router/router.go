@@ -12,7 +12,7 @@ func New() *echo.Echo {
 	e.Logger.SetLevel(log.DEBUG)
 	e.Pre(middleware.RemoveTrailingSlash())
 	e.Use(middleware.Logger())
-	//e.Validator = NewValidator()
+	e.Validator = NewValidator()
 
 	e.POST("wallet", handler.CreateWallet)
 

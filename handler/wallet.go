@@ -16,6 +16,9 @@ func CreateWallet(c echo.Context) error {
 	if err := c.Bind(wallet); err != nil {
 		return err
 	}
+	if err := c.Validate(wallet); err != nil {
+		return err
+	}
 
 	resp, err := client.R().
 		SetBody(map[string]interface{}{
