@@ -2,8 +2,8 @@ package helper
 
 import (
 	"github.com/go-resty/resty/v2"
+	"github.com/rs/zerolog/log"
 	"github.com/tidwall/gjson"
-	"log"
 )
 
 var Token string
@@ -23,11 +23,11 @@ func InitAcaPy() {
 		Get(adminUrl + "/multitenancy/wallets")
 
 	if err != nil {
-		log.Println("ERROR sending the request", err)
+		log.Error().Err(err).Msg("ERROR sending the request")
 		return
 	}
 
-	log.Println("Body:\n", resp)
+	log.Info().Msgf("Body:\n %v", resp)
 
 	var wallets string = resp.String()
 
@@ -41,15 +41,15 @@ func InitAcaPy() {
 			Post(adminUrl + "/multitenancy/wallet")
 
 		if err != nil {
-			log.Println("ERROR sending the request", err)
+			log.Error().Err(err).Msg("ERROR sending the request")
 			return
 		}
 
-		log.Println("Body:\n", resp)
+		log.Info().Msgf("Body:\n %v", resp)
 
 		Token = gjson.Get(resp.String(), "token").String()
 
-		log.Println("token: " + Token)
+		log.Info().Msgf("token: %v", Token)
 
 		resp, err = client.R().
 			SetBody(map[string]interface{}{
@@ -59,11 +59,11 @@ func InitAcaPy() {
 			Post(adminUrl + "/wallet/did/create")
 
 		if err != nil {
-			log.Println("ERROR sending the request", err)
+			log.Error().Err(err).Msg("ERROR sending the request")
 			return
 		}
 
-		log.Println("Body:\n", resp)
+		log.Info().Msgf("Body:\n %v", resp)
 
 		did := gjson.Get(resp.String(), "result.did").String()
 
@@ -75,11 +75,11 @@ func InitAcaPy() {
 			Get(adminUrl + "/wallet/did/public")
 
 		if err != nil {
-			log.Println("ERROR sending the request", err)
+			log.Error().Err(err).Msg("ERROR sending the request")
 			return
 		}
 
-		log.Println("Body:\n", resp)
+		log.Info().Msgf("Body:\n %v", resp)
 	} else {
 		stewardWalletId := gjson.Get(wallets, "results.0.wallet_id").String()
 
@@ -87,11 +87,11 @@ func InitAcaPy() {
 			Post(adminUrl + "/multitenancy/wallet/" + stewardWalletId + "/token")
 
 		if err != nil {
-			log.Println("ERROR sending the request", err)
+			log.Error().Err(err).Msg("ERROR sending the request")
 			return
 		}
 
-		log.Println("Body:\n", resp)
+		log.Info().Msgf("Body:\n %v", resp)
 
 		Token = gjson.Get(resp.String(), "token").String()
 	}

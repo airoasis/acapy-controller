@@ -4,14 +4,15 @@ import (
 	"example.com/controller/handler"
 	"github.com/labstack/echo/v4"
 	"github.com/labstack/echo/v4/middleware"
-	"github.com/labstack/gommon/log"
+	"github.com/rs/zerolog/log"
+	"github.com/ziflex/lecho/v2"
 )
 
 func New() *echo.Echo {
 	e := echo.New()
-	e.Logger.SetLevel(log.DEBUG)
+	e.Logger = lecho.From(log.Logger)
 	e.Pre(middleware.RemoveTrailingSlash())
-	e.Use(middleware.Logger())
+	//e.Use(middleware.Logger())
 	e.Validator = NewValidator()
 
 	e.POST("wallet", handler.CreateWallet)
