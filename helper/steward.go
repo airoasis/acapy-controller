@@ -17,7 +17,7 @@ func InitAcaPy() {
 	client := resty.New()
 
 	resp, err := client.R().
-		SetBody(map[string]interface{}{
+		SetQueryParams(map[string]string{
 			"wallet_name": stewardWallet,
 		}).
 		Get(adminUrl + "/multitenancy/wallets")
