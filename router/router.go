@@ -1,7 +1,7 @@
 package router
 
 import (
-	"example.com/controller/handler"
+	"github.com/airoasis/controller/handler"
 	"github.com/labstack/echo/v4"
 	"github.com/labstack/echo/v4/middleware"
 	"github.com/rs/zerolog/log"

@@ -1,7 +1,7 @@
 package handler
 
 import (
-	"example.com/controller/model"
+	"github.com/airoasis/controller/model"
 	"github.com/go-resty/resty/v2"
 	"github.com/google/uuid"
 	"github.com/labstack/echo/v4"

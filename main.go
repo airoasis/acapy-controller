@@ -1,8 +1,8 @@
 package main
 
 import (
-	"example.com/controller/helper"
-	"example.com/controller/router"
+	"github.com/airoasis/controller/helper"
+	"github.com/airoasis/controller/router"
 	"github.com/rs/zerolog"
 	"github.com/rs/zerolog/log"
 	"os"
